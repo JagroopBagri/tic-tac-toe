@@ -33,8 +33,7 @@ const game = (function(){
                 }
                 box.textContent = marker;
                 turn ++;
-                let winOrNot = detectWin();
-                console.log(winOrNot);
+                let winOrNot = detectGameOver();
                 isGameOver(winOrNot);
             });
         });
@@ -51,12 +50,12 @@ const game = (function(){
         [2,4,6]
     ];
 // Detect if winCondition has been met
-    function detectWin(){ 
+    function detectGameOver(){ 
         let player1Counter = 0; // counter variable used to detect 3 in a row from player 1
         let player2Counter = 0; // counter variable used to detect 3 in a row from player 2
-        let win = false; // If win is detected this variable will become true
+        let gameOver = false; // If a win or a draw is detected this variable will become true
         winConditions.forEach(row => {
-            if(win === true){
+            if(gameOver === true){
                 return;
             }
             player1Counter = 0;
@@ -69,8 +68,8 @@ const game = (function(){
                     player2Counter ++;
                 }
             });
-        if(player1Counter === 3 || player2Counter === 3){
-            win = true;
+        if(player1Counter === 3 || player2Counter === 3 || turn === 9){
+            gameOver = true;
         }
         });
         if(player1Counter === 3){
@@ -79,19 +78,24 @@ const game = (function(){
         else if(player2Counter === 3){
             return 'Player2';
         }
+        else if(turn === 9){
+            return 'Draw';
+        }
         else{
             return false;
         }
     };
 // Detect if game is over function
     function isGameOver(element){
-        console.log(element);
         if(element === 'Player1'){
             result.textContent = 'Game Over! Player 1 Wins'
             return;
         }
         else if(element === 'Player2'){
             result.textContent = 'Game Over! Player 2 Wins!'
+        }
+        else if(element === 'Draw'){
+            result.textContent = "Game Over! It's a draw!";
         }
         else if(element === false){
             return;
