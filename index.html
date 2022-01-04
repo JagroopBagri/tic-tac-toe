@@ -7,20 +7,30 @@
     <title>tic-tac-toe</title>
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="styles.css">
+    <script src='main.js' defer></script>
 </head>
 <body>
     <div class='container'>
-        <h1 class='header'> Tic-Tac-Toe</h1>
+        <div class='header'>
+            <h1> Tic-Tac-Toe</h1>
+            <div class='input'>
+                <label for='player1'>Player 1: </label>
+                <input type='text' id='player1' name='player1' placeholder="What is player 1's name?">
+                <label for='player2'>Player 2: </label>
+                <input type='text' id='player2' name='player2' placeholder="What is player 2's name?">
+            </div>
+            <button class='play'>Play</button>
+        </div>
         <div class='game-board'>
-                <div class='b1 square'>x</div>
-                <div class='b2 square'>x</div>
-                <div class='b3 square'>x</div>
-                <div class='b4 square'>x</div>
-                <div class='b5 square'>x</div>
-                <div class='b6 square'>o</div>
-                <div class='b7 square'>o</div>
-                <div class='b8 square'>o</div>
-                <div class='b9 square'>o</div>
+                <div class='b1 square'></div>
+                <div class='b2 square'></div>
+                <div class='b3 square'></div>
+                <div class='b4 square'></div>
+                <div class='b5 square'></div>
+                <div class='b6 square'></div>
+                <div class='b7 square'></div>
+                <div class='b8 square'></div>
+                <div class='b9 square'></div>
         </div>
         <div class='result'>You Win/Lose</div>
     </div>
