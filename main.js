@@ -2,29 +2,28 @@
 const game = (function(){
     let squares = document.querySelectorAll('.square'); // Array of each box on game-board
     let playButton = document.querySelector('.play'); // Play button
+    let result = document.querySelector('.result'); // Result div
     let turn = 0; // turn counter
-    
-    // Start Game when play button is clicked
+    let player1; // player 1
+    let player2; // player2 
+// Start Game when play button is clicked
     playButton.addEventListener('click', function (){
-        let player1 = getPlayer(1);
-        let player2 = getPlayer(2);
+        player1 = getPlayer(1);
+        player2 = getPlayer(2);
         draw();
-    });
-    
-    // Function used to get player 1 and player 2
+    });   
+// Function used to get player 1 and player 2
     function getPlayer(num){
         let marker;
         (num === 1) ? marker = 'X' : marker = 'O';
         let playerName = document.querySelector(`#player${num}`).value;
         return makePlayer(playerName, num, marker)
     }; 
-    
-    // Function used to draw in individual boxes
+// Function used to draw in individual boxes
     function draw(){
         let marker;
         squares.forEach(box => {
             box.addEventListener('click', () => {
-                console.log(turn);
                 if(turn === 9){
                     return 'Error';
                 };
@@ -34,10 +33,72 @@ const game = (function(){
                 }
                 box.textContent = marker;
                 turn ++;
+                let winOrNot = detectWin();
+                console.log(winOrNot);
+                isGameOver(winOrNot);
             });
         });
     };
-})();
+// Win conditions array for the game
+    const winConditions = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ];
+// Detect if winCondition has been met
+    function detectWin(){ 
+        let player1Counter = 0; // counter variable used to detect 3 in a row from player 1
+        let player2Counter = 0; // counter variable used to detect 3 in a row from player 2
+        let win = false; // If win is detected this variable will become true
+        winConditions.forEach(row => {
+            if(win === true){
+                return;
+            }
+            player1Counter = 0;
+            player2Counter = 0;
+            row.forEach(block => {
+                if(squares[block].textContent === player1.marker){
+                    player1Counter ++;
+                }
+                else if(squares[block].textContent === player2.marker){
+                    player2Counter ++;
+                }
+            });
+        if(player1Counter === 3 || player2Counter === 3){
+            win = true;
+        }
+        });
+        if(player1Counter === 3){
+            return 'Player1';
+        }
+        else if(player2Counter === 3){
+            return 'Player2';
+        }
+        else{
+            return false;
+        }
+    };
+// Detect if game is over function
+    function isGameOver(element){
+        console.log(element);
+        if(element === 'Player1'){
+            result.textContent = 'Game Over! Player 1 Wins'
+            return;
+        }
+        else if(element === 'Player2'){
+            result.textContent = 'Game Over! Player 2 Wins!'
+        }
+        else if(element === false){
+            return;
+        }
+    };
+
+})(); // end of module 
 
 // Factory Function used to create a player
 function makePlayer(name, number, marker){
