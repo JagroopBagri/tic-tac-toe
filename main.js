@@ -3,6 +3,7 @@ const game = (function(){
     let squares = document.querySelectorAll('.square'); // Array of each box on game-board
     let playButton = document.querySelector('.play'); // Play button
     let result = document.querySelector('.result'); // Result div
+    let header = document.querySelector('.header'); // Header div
     let turn = 0; // turn counter
     let player1; // player 1
     let player2; // player2 
@@ -24,6 +25,10 @@ const game = (function(){
         let marker;
         squares.forEach(box => {
             box.addEventListener('click', () => {
+                let winOrNot = detectGameOver();
+                if(winOrNot !== false){
+                    return;
+                }
                 if(turn === 9){
                     return 'Error';
                 };
@@ -33,7 +38,7 @@ const game = (function(){
                 }
                 box.textContent = marker;
                 turn ++;
-                let winOrNot = detectGameOver();
+                winOrNot = detectGameOver();
                 isGameOver(winOrNot);
             });
         });
@@ -89,17 +94,28 @@ const game = (function(){
     function isGameOver(element){
         if(element === 'Player1'){
             result.textContent = 'Game Over! Player 1 Wins'
-            return;
+            gameOver();
         }
         else if(element === 'Player2'){
             result.textContent = 'Game Over! Player 2 Wins!'
+            gameOver();
         }
         else if(element === 'Draw'){
             result.textContent = "Game Over! It's a draw!";
+            gameOver();
         }
         else if(element === false){
             return;
         }
+    };
+// Game Over Function
+    function gameOver(){
+        playButton.remove();
+        let restartButton = document.createElement('button');
+        restartButton.classList.add('restart');
+        restartButton.textContent = 'Restart';
+        header.appendChild(restartButton);
+
     };
 
 })(); // end of module 
