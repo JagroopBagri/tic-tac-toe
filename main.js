@@ -1,7 +1,9 @@
 // Module Pattern IIFE
 const game = (function(){
     let squares = document.querySelectorAll('.square'); // Array of each box on game-board
-    let playButton = document.querySelector('.play'); // Play button
+    let playButton = document.querySelector('.play'); // 2 Player button
+    let playComputer = document.querySelector('.playComputer'); // Play Computer button
+    let inputs = document.querySelector('.input');
     let result = document.querySelector('.result'); // Result div
     let header = document.querySelector('.header'); // Header div
     let turn = 0; // turn counter
@@ -11,6 +13,9 @@ const game = (function(){
     playButton.addEventListener('click', function (){
         player1 = getPlayer(1);
         player2 = getPlayer(2);
+        inputs.remove();
+        playButton.remove();
+        playComputer.remove();
         draw();
     });   
 // Function used to get player 1 and player 2
@@ -22,6 +27,7 @@ const game = (function(){
     }; 
 // Function used to draw in individual boxes
     function draw(){
+        let color;
         let marker;
         squares.forEach(box => {
             box.addEventListener('click', () => {
@@ -32,11 +38,20 @@ const game = (function(){
                 if(turn === 9){
                     return 'Error';
                 };
-                (turn === 0 || turn % 2 === 0) ? marker = 'X' : marker = 'O';
+                //(turn === 0 || turn % 2 === 0) ? marker = 'X' : marker = 'O';
+                if(turn === 0 || turn % 2 === 0){
+                    marker = 'X';
+                    color = 'red';
+                }
+                else{
+                    marker = 'O';
+                    color = 'blue';
+                }
                 if(box.textContent !== ''){
                     return;
                 }
                 box.textContent = marker;
+                box.classList.add(color);
                 turn ++;
                 winOrNot = detectGameOver();
                 isGameOver(winOrNot);
@@ -93,11 +108,21 @@ const game = (function(){
 // Detect if game is over function
     function isGameOver(element){
         if(element === 'Player1'){
-            result.textContent = 'Game Over! Player 1 Wins'
+            if(player1.name !== ''){
+                result.textContent = `Game Over! ${player1.name} wins!`;
+            }
+            else{
+                result.textContent = `Game Over! Player 1 wins!`;
+            }
             gameOver();
         }
         else if(element === 'Player2'){
-            result.textContent = 'Game Over! Player 2 Wins!'
+            if(player2.name !== ''){
+                result.textContent = `Game Over! ${player2.name} wins!`;
+            }
+            else{
+                result.textContent = `Game Over! Player 2 wins!`;
+            }
             gameOver();
         }
         else if(element === 'Draw'){
@@ -115,6 +140,9 @@ const game = (function(){
         restartButton.classList.add('restart');
         restartButton.textContent = 'Restart';
         header.appendChild(restartButton);
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
 
     };
 

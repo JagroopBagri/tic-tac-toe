@@ -1,6 +1,8 @@
 *{
     border-width: 1px;
     box-sizing: border-box;
+    border-color: white;
+    color: white;
 }
 
 body{
@@ -10,9 +12,9 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background-color: black;
 }
 .container{
-    border-style: solid;
     margin: 2%;
     display: flex;
     flex-direction: column;
@@ -23,23 +25,65 @@ body{
     min-height: 500px;
     min-width: 500px;
     overflow: auto;
+    gap: 25px;
+    border-style: solid;
 }
 
 .header{
     width: 40vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    border-style: solid;
+    gap: 20px;
+    max-width: 400px;
 }
 
+h1{
+    font-size: 3rem;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+input:focus::placeholder {
+    color: transparent;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    height: 30%;
+    background-color: transparent;
+}
+button{
+    background-color: transparent;
+    border-color: white;
+    width: 46%;
+    height:100%;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+.play:hover{
+    border-color: lightblue;
+    color: lightblue;
+}
+.playComputer:hover{
+    border-color: indianred;
+    color: indianred;
+}
+  
 .game-board{
     border-style: solid;
     width: 40vw;
     height: 40vw;
     min-width: 250px;
     min-height: 250px;
+    max-height: 400px;
+    max-width: 400px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -56,3 +100,9 @@ body{
     overflow: hidden;
 }
 
+.red{
+    color: indianred;
+}
+.blue{
+    color: lightblue;
+}
