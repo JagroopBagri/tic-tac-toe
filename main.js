@@ -9,15 +9,29 @@ const game = (function(){
     let turn = 0; // turn counter
     let player1; // player 1
     let player2; // player2 
-// Start Game when play button is clicked
+// Start Game when 2 players button is clicked
     playButton.addEventListener('click', function (){
         player1 = getPlayer(1);
         player2 = getPlayer(2);
         inputs.remove();
         playButton.remove();
         playComputer.remove();
-        draw();
+        play();
     });   
+// Start Game when play computer button is clicked
+    playComputer.addEventListener('click', function(){
+        playButton.remove();
+        player1 = getPlayer(1);
+        player2 = {
+            name: 'Computer',
+            number: 2,
+            marker: 'O'
+        };
+        inputs.remove();
+        playComputer.remove();
+        play();
+        computerPlay();
+    });
 // Function used to get player 1 and player 2
     function getPlayer(num){
         let marker;
@@ -25,8 +39,8 @@ const game = (function(){
         let playerName = document.querySelector(`#player${num}`).value;
         return makePlayer(playerName, num, marker)
     }; 
-// Function used to draw in individual boxes
-    function draw(){
+// Play Function
+    function play(){
         let color;
         let marker;
         squares.forEach(box => {
@@ -58,6 +72,10 @@ const game = (function(){
             });
         });
     };
+// Lets comptuer play function
+    function computerPlay(){
+        
+    }
 // Win conditions array for the game
     const winConditions = [
         [0,1,2],
@@ -156,3 +174,9 @@ function makePlayer(name, number, marker){
         marker
     };
 }; 
+
+
+// Insert footer with updating year
+const footer = document.querySelector('.footer')
+const currentYear = new Date().getFullYear();
+footer.textContent = 'Copyright © ' + currentYear + ' Jagroop Bagri'
