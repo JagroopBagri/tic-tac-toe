@@ -1,6 +1,6 @@
 // Module Pattern IIFE
 const game = (function(){
-    let squares = document.querySelectorAll('.square'); // Array of each box on game-board
+    let squares = document.querySelectorAll('.square'); // Nodelist (array-like object) of squares 
     let playButton = document.querySelector('.play'); // 2 Player button
     let playComputer = document.querySelector('.playComputer'); // Play Computer button
     let inputs = document.querySelector('.input');
@@ -9,8 +9,11 @@ const game = (function(){
     let turn = 0; // turn counter
     let player1; // player 1
     let player2; // player2 
+    let twoPlayerMode = null; // Turns false when play computer is selected and true when 2player is selected
 // Start Game when 2 players button is clicked
     playButton.addEventListener('click', function (){
+        turn = 0;
+        twoPlayerMode === true;
         player1 = getPlayer(1);
         player2 = getPlayer(2);
         inputs.remove();
@@ -20,6 +23,8 @@ const game = (function(){
     });   
 // Start Game when play computer button is clicked
     playComputer.addEventListener('click', function(){
+        turn = 0;
+        twoPlayerMode = false;
         playButton.remove();
         player1 = getPlayer(1);
         player2 = {
@@ -69,12 +74,23 @@ const game = (function(){
                 turn ++;
                 winOrNot = detectGameOver();
                 isGameOver(winOrNot);
+                if(twoPlayerMode === false && winOrNot !== true){
+                    computerPlay();
+                    winOrNot = detectGameOver();
+                    isGameOver(winOrNot);
+                    turn ++;
+                }
             });
         });
     };
 // Lets comptuer play function
     function computerPlay(){
-        
+        if(turn % 2 !== 0 && turn <=9){
+            squaresArray = Array.from(squares); // transform squares nodelist into an array
+            emptySquares = squaresArray.filter(box => box.textContent === '');
+            randomSquare = emptySquares[Math.floor(Math.random() * emptySquares.length)];
+            randomSquare.textContent = 'O';
+        }
     }
 // Win conditions array for the game
     const winConditions = [

@@ -81,7 +81,6 @@ button{
 }
   
 .game-board{
-    border-style: solid;
     width: 40vw;
     height: 40vw;
     min-width: 250px;
@@ -102,6 +101,26 @@ button{
     align-items: center;
     font-size: 4rem;
     overflow: hidden;
+}
+.b1, .b7{
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+}
+.b3, .b9{
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-right-style: hidden;
+}
+.b2, .b8{
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+}
+.b4{
+    border-left-style: hidden;
+}
+.b6{
+    border-right-style: hidden;
 }
 
 .red{
