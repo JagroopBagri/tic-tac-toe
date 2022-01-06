@@ -71,9 +71,9 @@ const game = (function(){
                 }
                 box.textContent = marker;
                 box.classList.add(color);
-                turn ++;
                 winOrNot = detectGameOver();
                 isGameOver(winOrNot);
+                turn ++;
                 if(twoPlayerMode === false && winOrNot !== true){
                     computerPlay();
                     winOrNot = detectGameOver();
