@@ -6,6 +6,7 @@ const game = (function(){
     let inputs = document.querySelector('.input');
     let result = document.querySelector('.result'); // Result div
     let header = document.querySelector('.header'); // Header div
+    let color;
     let turn = 0; // turn counter
     let player1; // player 1
     let player2; // player2 
@@ -46,7 +47,6 @@ const game = (function(){
     }; 
 // Play Function
     function play(){
-        let color;
         let marker;
         squares.forEach(box => {
             box.addEventListener('click', () => {
@@ -74,22 +74,29 @@ const game = (function(){
                 winOrNot = detectGameOver();
                 isGameOver(winOrNot);
                 turn ++;
-                if(twoPlayerMode === false && winOrNot !== true){
+                if(twoPlayerMode === false && winOrNot === false){
                     computerPlay();
                     winOrNot = detectGameOver();
                     isGameOver(winOrNot);
                     turn ++;
+                }
+                if(winOrNot === false){
+                    winOrNot = detectGameOver();
+                    isGameOver(winOrNot);
                 }
             });
         });
     };
 // Lets comptuer play function
     function computerPlay(){
-        if(turn % 2 !== 0 && turn <=9){
+        if(turn % 2 !== 0 && turn < 9){
             squaresArray = Array.from(squares); // transform squares nodelist into an array
             emptySquares = squaresArray.filter(box => box.textContent === '');
             randomSquare = emptySquares[Math.floor(Math.random() * emptySquares.length)];
             randomSquare.textContent = 'O';
+            color = 'blue';
+            randomSquare.classList.add(color);
+            
         }
     }
 // Win conditions array for the game
@@ -196,3 +203,5 @@ function makePlayer(name, number, marker){
 const footer = document.querySelector('.footer')
 const currentYear = new Date().getFullYear();
 footer.textContent = 'Copyright © ' + currentYear + ' Jagroop Bagri'
+
+
