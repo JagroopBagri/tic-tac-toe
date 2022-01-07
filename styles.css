@@ -79,6 +79,10 @@ button{
     border-color: indianred;
     color: indianred;
 }
+.restart:hover{
+    border-color: greenyellow;
+    color: greenyellow;
+}
   
 .game-board{
     width: 40vw;
